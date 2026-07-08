@@ -3,7 +3,9 @@ import io.gitlab.arturbosch.detekt.detekt
 buildscript {
     repositories {
         google()
+        mavenCentral()
         jcenter()
+
     }
 
     dependencies {
@@ -17,9 +19,11 @@ buildscript {
 allprojects {
     repositories {
         google()
+        mavenCentral()
         jcenter()
+
         maven("https://jitpack.io")
-        maven("https://kotlin.bintray.com/kotlinx/")
+
     }
 }
 
