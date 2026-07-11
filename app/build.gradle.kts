@@ -63,7 +63,10 @@ android {
                     file("proguard-rules.pro")
                 )
             )
-            signingConfig = signingConfigs.getByName("release")
+            val keystorePropertiesFile = file("../ci-dummies/upload-keystore.properties")
+            if (keystorePropertiesFile.exists()) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
 

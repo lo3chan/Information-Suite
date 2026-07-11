@@ -1,11 +1,9 @@
 name: Build and Release APK
 
 on:
-  release:
-    types: [published]
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
 
 jobs:
   build:
@@ -28,11 +26,31 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew assembleRelease
 
-      - name: Upload APK to Release
-        uses: svenstaro/upload-release-action@v2
+      - name: Generate Temporary Keystore
+        run: |
+          keytool -genkey -v -keystore temporary.keystore -alias temp_alias -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Temp, OU=Temp, O=Temp, L=Temp, S=Temp, C=US" -storepass temppassword -keypass temppassword
+
+      - name: Sign APK
+        run: |
+          $ANDROID_HOME/build-tools/34.0.0/apksigner sign --ks temporary.keystore --ks-key-alias temp_alias --ks-pass pass:temppassword --key-pass pass:temppassword --out app-release-signed.apk app/build/outputs/apk/release/app-release-unsigned.apk
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: app/build/outputs/apk/release/app-release-unsigned.apk
+          tag_name: release-${{ github.sha }}
+          release_name: Release ${{ github.sha }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Signed APK to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./app-release-signed.apk
           asset_name: app-release.apk
-          tag: ${{ github.ref }}
-          overwrite: true
+          asset_content_type: application/vnd.android.package-archive
