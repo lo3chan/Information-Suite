@@ -1,7 +1,7 @@
 package com.bernaferrari.changedetection.repo.source
 
 import com.bernaferrari.changedetection.repo.Site
-import io.reactivex.Observable
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -21,7 +21,7 @@ class SitesRepository @Inject constructor(
     sitesLocalDataSource: SitesDataSource
 ) : SitesDataSource {
 
-    override fun getDataWithChanges(): Observable<List<Site>> {
+    override fun getDataWithChanges(): Flow<List<Site>> {
         return mSitesLocalDataSource.getDataWithChanges()
     }
 

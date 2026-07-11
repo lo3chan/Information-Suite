@@ -7,7 +7,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.bernaferrari.changedetection.repo.Snap
-import io.reactivex.Observable
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Data Access Object for the sites table.
@@ -173,7 +173,7 @@ interface SnapsDao {
      * @return all snaps for the siteId.
      */
     @Query("SELECT * FROM snaps WHERE siteId = :siteId AND contentType LIKE :filter ORDER BY timestamp DESC")
-    fun getSnapsWithChange(siteId: String, filter: String): Observable<List<Snap>>
+    fun getSnapsWithChange(siteId: String, filter: String): Flow<List<Snap>>
 
 
     /**
@@ -188,6 +188,6 @@ interface SnapsDao {
 
 
     @Query("SELECT count(*) FROM snaps WHERE siteId = :siteId AND contentType LIKE :filter ORDER BY timestamp DESC")
-    fun countSnapsWithChange(siteId: String, filter: String): Observable<Int>
+    fun countSnapsWithChange(siteId: String, filter: String): Flow<Int>
 
 }

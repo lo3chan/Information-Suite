@@ -1,4 +1,5 @@
-package com.bernaferrari.changedetection
+with open("app/src/main/java/com/bernaferrari/changedetection/App.kt", "w") as f:
+    f.write("""package com.bernaferrari.changedetection
 
 import android.app.Application
 import com.facebook.stetho.Stetho
@@ -15,7 +16,9 @@ class App : Application() {
         INSTANCE = this
 
         AndroidThreeTen.init(this)
-        Stetho.initializeWithDefaults(this)
+        if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(this)
+        }
 
         Logger.addLogAdapter(object : AndroidLogAdapter() {
             override fun isLoggable(priority: Int, tag: String?): Boolean {
@@ -32,3 +35,4 @@ class App : Application() {
             INSTANCE ?: throw NullPointerException("App INSTANCE must not be null")
     }
 }
+""")

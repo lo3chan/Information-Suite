@@ -4,14 +4,15 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        jcenter()
+
 
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:7.3.1")
-        classpath(kotlin("gradle-plugin", version = "1.7.20"))
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.2.1")
+        classpath("com.android.tools.build:gradle:8.2.2")
+        classpath("com.google.dagger:hilt-android-gradle-plugin:2.46.1")
+        classpath(kotlin("gradle-plugin", version = "1.9.22"))
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.7")
         classpath("com.github.ben-manes:gradle-versions-plugin:0.43.0")
     }
 }
@@ -20,9 +21,9 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter()
 
-        maven("https://jitpack.io")
+
+
 
     }
 }

@@ -13,8 +13,8 @@ android {
     }
 
     compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
+        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_11
     }
 }
 
@@ -26,18 +26,13 @@ dependencies {
     implementation Libs2.Coroutines.android
 
     // Epoxy
-    implementation Libs2.Epoxy.epoxy
-    implementation Libs2.Epoxy.dataBinding
 
     // MvRx
-    implementation Libs2.MvRx.main
 
     // Glide
     implementation Libs2.Glide.glide
 
     // Dagger
-    implementation Libs2.Dagger.dagger
-    implementation Libs2.Dagger.androidSupport
 
     // AndroidX
     implementation Libs2.Google.material

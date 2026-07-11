@@ -5,17 +5,16 @@ import java.util.*
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id("kotlin-android-extensions")
-    id("kotlin-kapt")
+    id("kotlin-parcelize")
+    id("com.google.devtools.ksp") version "1.9.22-1.0.16"
     id("com.github.ben-manes.versions")
 }
 
-androidExtensions {
-    isExperimental = true
-}
 
 android {
-    compileSdkVersion(33)
+    namespace = "com.bernaferrari.changedetection"
+
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.bernaferrari.changedetection"
@@ -46,8 +45,11 @@ android {
     }
 
     lintOptions.isAbortOnError = false
-    buildFeatures.dataBinding = true
-    kapt.correctErrorTypes = true
+    buildFeatures.compose = true
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.10"
+    }
+
 
     buildTypes {
         named("release") {
@@ -81,6 +83,22 @@ dependencies {
     implementation(project(":diffutils"))
     implementation(project(":repo"))
 
+
+    // Compose
+    implementation(platform(Libs2.Compose.bom))
+    implementation(Libs2.Compose.ui)
+    implementation(Libs2.Compose.material3)
+    implementation(Libs2.Compose.uiToolingPreview)
+    debugImplementation(Libs2.Compose.uiTooling)
+    implementation(Libs2.Compose.activity)
+    implementation(Libs2.Compose.navigation)
+    implementation(Libs2.Compose.hiltNavigation)
+    implementation(Libs2.Compose.foundation)
+
+    // Hilt
+    implementation(Libs2.Hilt.android)
+    ksp(Libs2.Hilt.compiler)
+
     // Kotlin
     implementation(Libs2.Kotlin.stdlib)
     implementation(Libs2.Coroutines.core)
@@ -88,26 +106,15 @@ dependencies {
     implementation(Libs2.Coroutines.android)
 
     // Epoxy
-    implementation(Libs2.Epoxy.epoxy)
-    implementation(Libs2.Epoxy.dataBinding)
-    implementation(Libs2.Epoxy.paging)
-    kapt(Libs2.Epoxy.processor)
 
     // MvRx
-    implementation(Libs2.MvRx.main)
 
     // Glide
     implementation(Libs2.Glide.glide)
 
     // Dagger
-    implementation(Libs2.Dagger.dagger)
-    kapt(Libs2.Dagger.compiler)
 
-    implementation(Libs2.Dagger.androidSupport)
-    kapt(Libs2.Dagger.androidProcessor)
 
-    compileOnly(Libs2.AssistedInject.annotationDagger2)
-    kapt(Libs2.AssistedInject.processorDagger2)
 
 
     // AndroidX
@@ -120,11 +127,9 @@ dependencies {
     implementation(Libs2.AndroidX.Lifecycle.liveDataKtx)
     implementation(Libs2.AndroidX.Lifecycle.viewModel)
 
-    implementation(Libs2.AndroidX.Navigation.navigationUi)
-    implementation(Libs2.AndroidX.Navigation.navigationFragment)
 
     annotationProcessor(Libs2.AndroidX.Room.compiler)
-    kapt(Libs2.AndroidX.Room.compiler)
+    ksp(Libs2.AndroidX.Room.compiler)
     implementation(Libs2.AndroidX.Room.runtime)
     implementation(Libs2.AndroidX.Room.roomktx)
     implementation(Libs2.AndroidX.Work.runtimeKtx)
@@ -136,33 +141,24 @@ dependencies {
     implementation(Libs2.logger)
 
     // RX
-    implementation(Libs2.RxJava.rxJava)
-    implementation(Libs2.RxJava.rxAndroid)
-    implementation(Libs2.RxJava.rxKotlin)
-    implementation(Libs2.RxJava.rxRelay)
-    implementation(Libs2.RxJava.rxkPrefs)
 
     // Glide
     implementation(Libs2.Glide.glide)
-    kapt(Libs2.Glide.compiler)
+    ksp(Libs2.Glide.compiler)
 
     // Others
     implementation(Libs2.jsoup)
     implementation(Libs2.MaterialDialogs.core)
     implementation(Libs2.MaterialDialogs.input)
     implementation(Libs2.MaterialDialogs.bottomsheets)
-    implementation(Libs2.notify)
 
     // UI
-    implementation(Libs2.alerter)
 
-    implementation(Libs2.Komprehensions.rxJava)
 
     debugImplementation(Libs2.LeakCanary.no_op)
     debugImplementation(Libs2.LeakCanary.no_op)
     releaseImplementation(Libs2.LeakCanary.no_op)
 
-    implementation("com.davemorrissey.labs:subsampling-scale-image-view:3.10.0")
 
     // Iconics
     implementation("com.mikepenz:iconics-core:3.1.0@aar")
@@ -170,14 +166,9 @@ dependencies {
     implementation("com.mikepenz:google-material-typeface:3.0.1.2.original@aar")
 
     // About
-    implementation("com.github.daniel-stoneuk:material-about-library:2.4.2")
 
 
     // RecyclerView
-    val groupie = "2.4.0"
-    implementation("com.xwray:groupie:$groupie")
-    implementation("com.yarolegovich:discrete-scrollview:1.4.9")
-    implementation("com.xwray:groupie-kotlin-android-extensions:$groupie")
 
     // Internal
     implementation(Libs2.stetho)
