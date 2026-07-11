@@ -1,4 +1,5 @@
-apply from: '../core_dependencies.gradle'
+with open("base/build.gradle", "w") as f:
+    f.write("""apply from: '../core_dependencies.gradle'
 
 android {
     namespace "com.bernaferrari.base"
@@ -11,3 +12,4 @@ android {
         jvmTarget = "11"
     }
 }
+""")

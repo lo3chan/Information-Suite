@@ -4,19 +4,22 @@ import com.bernaferrari.buildsrc.Android
 apply from: '../core_dependencies.gradle'
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion Android.compileSdk
+    namespace "com.bernaferrari.ui"
+    compileSdk 34
 
     defaultConfig {
         minSdkVersion Android.minSdk
-        targetSdkVersion Android.targetSdk
+        targetSdkVersion 34
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 
@@ -27,6 +30,4 @@ dependencies {
     // Google
     implementation Libs2.AndroidX.Lifecycle.liveDataKtx
     implementation Libs2.AndroidX.Lifecycle.viewModel
-
-    implementation Libs2.RxJava.rxRelay
 }

@@ -1,21 +1,30 @@
+plugins {
+    id 'com.google.devtools.ksp' version '1.9.22-1.0.16'
+}
+
 import com.bernaferrari.buildsrc.Android
 import com.bernaferrari.buildsrc.Libs2
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-android-extensions'
-
-androidExtensions {
-    experimental = true
-}
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'com.google.devtools.ksp'
 
 android {
-    compileSdkVersion Android.compileSdk
+    namespace "com.bernaferrari.repo"
+
+    compileSdk 34
 
     defaultConfig {
         minSdkVersion Android.minSdk
-        targetSdkVersion Android.targetSdk
+        targetSdkVersion 34
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = "11"
     }
 }
 
@@ -26,16 +35,11 @@ dependencies {
     implementation Libs2.Coroutines.core
     implementation Libs2.Coroutines.android
 
-    // Dagger
-    implementation Libs2.Dagger.dagger
-    kapt Libs2.Dagger.compiler
-
     // Room
     implementation Libs2.AndroidX.Room.runtime
     implementation Libs2.AndroidX.Room.roomktx
     implementation Libs2.AndroidX.Room.rxjava2
-    kapt Libs2.AndroidX.Room.compiler
-    annotationProcessor Libs2.AndroidX.Room.compiler
+    ksp Libs2.AndroidX.Room.compiler
 
     // Paging
     implementation Libs2.AndroidX.Paging.common
@@ -50,4 +54,5 @@ dependencies {
 
     // Parsing
     implementation Libs2.jsoup
+    implementation "javax.inject:javax.inject:1"
 }

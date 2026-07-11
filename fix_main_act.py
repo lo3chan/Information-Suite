@@ -1,4 +1,5 @@
-package com.bernaferrari.changedetection
+with open("app/src/main/java/com/bernaferrari/changedetection/MainActivity.kt", "w") as f:
+    f.write("""package com.bernaferrari.changedetection
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -37,3 +38,4 @@ class MainActivity : ComponentActivity() {
         const val TRANSITION = 175L
     }
 }
+""")

@@ -6,8 +6,8 @@ object Versions {
 
 object Android {
     val minSdk = 21
-    val targetSdk = 33
-    val compileSdk = 33
+    val targetSdk = 34
+    val compileSdk = 34
     val versionCode = 1
     val versionName = "0.1"
 }
@@ -147,6 +147,28 @@ object Libs2 {
             val testing = "androidx.work:work-testing:$version"
         }
     }
+
+    object Compose {
+    const val version = "1.4.3"
+    const val material3Version = "1.1.1"
+    const val navigationVersion = "2.7.7"
+
+    val bom = "androidx.compose:compose-bom:2023.06.01"
+    val ui = "androidx.compose.ui:ui"
+    val material3 = "androidx.compose.material3:material3"
+    val uiToolingPreview = "androidx.compose.ui:ui-tooling-preview"
+    val uiTooling = "androidx.compose.ui:ui-tooling"
+    val navigation = "androidx.navigation:navigation-compose:$navigationVersion"
+    val activity = "androidx.activity:activity-compose:1.7.2"
+    val hiltNavigation = "androidx.hilt:hilt-navigation-compose:1.0.0"
+    val foundation = "androidx.compose.foundation:foundation"
+}
+
+object Hilt {
+    const val version = "2.46.1"
+    val android = "com.google.dagger:hilt-android:$version"
+    val compiler = "com.google.dagger:hilt-android-compiler:$version"
+}
 
     object RxJava {
         val rxJava = "io.reactivex.rxjava2:rxjava:2.2.10"

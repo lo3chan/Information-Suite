@@ -1,4 +1,5 @@
-package com.bernaferrari.changedetection
+with open("app/src/main/java/com/bernaferrari/changedetection/Injector.kt", "w") as f:
+    f.write("""package com.bernaferrari.changedetection
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -83,3 +84,4 @@ object RepositoriesMutualDependenciesModule {
     internal fun provideAppExecutors(): AppExecutors = AppExecutors()
 }
 
+""")

@@ -122,21 +122,9 @@
         <item name="android:background">@drawable/bg_bottom_sheet_dialog_fragment</item>
     </style>
 
-    <style name="AboutLight" parent="Theme.Mal.Light">
-        <item name="mal_card_background">?mainCardColor</item>
-        <item name="android:windowBackground">?windowBackground</item>
 
-        <item name="mal_color_primary">?strongColor</item>
-        <item name="mal_color_secondary">?weakColor</item>
-    </style>
 
-    <style name="AboutDark" parent="Theme.Mal.Dark">
-        <item name="mal_card_background">?mainCardColor</item>
-        <item name="android:windowBackground">?windowBackground</item>
 
-        <item name="mal_color_primary">?strongColor</item>
-        <item name="mal_color_secondary">?weakColor</item>
-    </style>
 
     <style name="ItemTitle">
         <item name="android:ellipsize">end</item>
